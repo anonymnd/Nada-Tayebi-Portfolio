@@ -145,8 +145,9 @@
 }
 
 .btn.primary:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   filter: brightness(1.05);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
 .btn.ghost {
@@ -196,6 +197,11 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.photo-frame:hover img {
+  transform: scale(1.04);
 }
 
 .section {
@@ -244,11 +250,20 @@
   gap: 1.25rem;
 }
 
+.skill-block {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+  border-radius: 0.75rem;
+  padding: 0.25rem;
+}
+
 .timeline > li {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 1rem;
   align-items: start;
+  list-style: none;
 }
 
 .timeline-marker {
@@ -265,6 +280,10 @@
   border: 1px solid var(--line);
   border-radius: 0.75rem;
   padding: 1rem 1.25rem;
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .section:nth-child(even) .timeline-card {
@@ -302,6 +321,16 @@
   border-radius: 0.875rem;
   padding: 1.35rem 1.5rem;
   background: var(--surface);
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-sm);
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
 }
 
 .section:nth-child(even) .card {
@@ -380,6 +409,14 @@
   background: color-mix(in srgb, var(--accent) 12%, var(--surface));
   color: var(--ink);
   border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--line));
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.skill-tags li:hover {
+  transform: translateY(-2px) scale(1.04);
+  background: color-mix(in srgb, var(--accent) 20%, var(--surface));
 }
 
 .project-top {
