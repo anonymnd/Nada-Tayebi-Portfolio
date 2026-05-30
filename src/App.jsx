@@ -6,17 +6,20 @@ import {
   experience,
   skillGroups,
   projects,
+  hackathons,
+  languages,
   certifications,
 } from './data/portfolio.js'
 import { Reveal } from './hooks/useReveal.jsx'
 
 function Nav() {
   const links = [
-    ['À propos', '#about'],
-    ['Formation', '#education'],
+    ['Profil', '#about'],
     ['Expérience', '#experience'],
     ['Compétences', '#skills'],
     ['Projets', '#projects'],
+    ['Formation', '#education'],
+    ['Distinctions', '#distinctions'],
     ['Contact', '#contact'],
   ]
   return (
@@ -52,9 +55,11 @@ function Hero() {
         <p className="hero-role animate-hero" style={{ '--i': 2 }}>
           {profile.title}
         </p>
-        <p className="hero-tagline animate-hero" style={{ '--i': 3 }}>
-          {profile.tagline}
-        </p>
+        <ul className="hero-specialties animate-hero" style={{ '--i': 3 }}>
+          {profile.specialties.map((s) => (
+            <li key={s}>{s}</li>
+          ))}
+        </ul>
         <div className="hero-actions animate-hero" style={{ '--i': 4 }}>
           <a className="btn primary" href="#projects">
             Mes projets
@@ -105,30 +110,21 @@ function Section({ id, title, children, className = '' }) {
   )
 }
 
+function TypeBadge({ type }) {
+  if (!type) return null
+  return <span className="type-badge">{type}</span>
+}
+
 function App() {
   return (
     <>
       <Nav />
       <main>
         <Hero />
-        <Section id="about" title="À propos">
+        <Section id="about" title="Profil">
           <Reveal delay={80}>
             <p className="prose">{about}</p>
           </Reveal>
-        </Section>
-        <Section id="education" title="Formation">
-          <ul className="timeline">
-            {education.map((e, i) => (
-              <Reveal as="li" key={e.degree + e.period} delay={i * 90}>
-                <div className="timeline-marker" aria-hidden />
-                <div className="timeline-card hover-lift">
-                  <p className="timeline-period">{e.period}</p>
-                  <h3 className="timeline-heading">{e.degree}</h3>
-                  <p className="timeline-meta">{e.school}</p>
-                </div>
-              </Reveal>
-            ))}
-          </ul>
         </Section>
         <Section id="experience" title="Expérience">
           <div className="cards">
@@ -136,7 +132,10 @@ function App() {
               <Reveal key={job.role + job.period} delay={i * 100}>
                 <article className="card hover-lift">
                   <header className="card-head">
-                    <h3 className="card-title">{job.role}</h3>
+                    <div className="card-title-row">
+                      <h3 className="card-title">{job.role}</h3>
+                      <TypeBadge type={job.type} />
+                    </div>
                     <p className="card-sub">
                       {job.org}
                       {job.location ? ` · ${job.location}` : ''}
@@ -153,17 +152,21 @@ function App() {
             ))}
           </div>
         </Section>
-        <Section id="skills" title="Compétences">
+        <Section id="skills" title="Compétences techniques">
           <div className="skill-grid">
             {skillGroups.map((g, i) => (
-              <Reveal key={g.title} delay={i * 80}>
+              <Reveal key={g.title} delay={i * 60}>
                 <div className="skill-block hover-lift">
                   <h3 className="skill-block-title">{g.title}</h3>
-                  <ul className="skill-tags">
-                    {g.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
+                  {g.note ? (
+                    <p className="skill-note">{g.note}</p>
+                  ) : (
+                    <ul className="skill-tags">
+                      {g.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               </Reveal>
             ))}
@@ -172,10 +175,13 @@ function App() {
         <Section id="projects" title="Projets">
           <div className="cards">
             {projects.map((p, i) => (
-              <Reveal key={p.name} delay={i * 100}>
+              <Reveal key={p.name} delay={i * 80}>
                 <article className="card project-card hover-lift">
                   <div className="project-top">
-                    <h3 className="card-title">{p.name}</h3>
+                    <div className="card-title-row">
+                      <h3 className="card-title">{p.name}</h3>
+                      <TypeBadge type={p.type} />
+                    </div>
                     {p.link ? (
                       <a
                         className="project-link"
@@ -183,16 +189,43 @@ function App() {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        Voir
+                        GitHub
                       </a>
                     ) : null}
                   </div>
                   <p className="project-stack">{p.stack}</p>
-                  <p className="prose tight">{p.description}</p>
+                  <ul className="bullet-list">
+                    {p.bullets.map((b) => (
+                      <li key={b}>{b}</li>
+                    ))}
+                  </ul>
                 </article>
               </Reveal>
             ))}
           </div>
+        </Section>
+        <Section id="education" title="Formation">
+          <ul className="timeline">
+            {education.map((e, i) => (
+              <Reveal as="li" key={e.degree + e.period} delay={i * 90}>
+                <div className="timeline-marker" aria-hidden />
+                <div className="timeline-card hover-lift">
+                  <p className="timeline-period">{e.period}</p>
+                  <h3 className="timeline-heading">{e.degree}</h3>
+                  <p className="timeline-meta">{e.school}</p>
+                </div>
+              </Reveal>
+            ))}
+          </ul>
+        </Section>
+        <Section id="distinctions" title="Hackathons & distinctions">
+          <ul className="award-list">
+            {hackathons.map((item, i) => (
+              <Reveal as="li" key={item} delay={i * 80}>
+                {item}
+              </Reveal>
+            ))}
+          </ul>
         </Section>
         <Section id="certifications" title="Certifications">
           <ul className="cert-list">
@@ -200,6 +233,16 @@ function App() {
               <Reveal as="li" key={c.title} delay={i * 90}>
                 <span className="cert-title">{c.title}</span>
                 <span className="cert-issuer">{c.issuer}</span>
+              </Reveal>
+            ))}
+          </ul>
+        </Section>
+        <Section id="languages" title="Langues">
+          <ul className="lang-list">
+            {languages.map((lang, i) => (
+              <Reveal as="li" key={lang.name} delay={i * 80}>
+                <span className="lang-name">{lang.name}</span>
+                <span className="lang-level">{lang.level}</span>
               </Reveal>
             ))}
           </ul>

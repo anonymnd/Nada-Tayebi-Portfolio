@@ -102,10 +102,31 @@
 }
 
 .hero-role {
-  font-size: 1.125rem;
+  font-size: 1.05rem;
   font-weight: 500;
-  color: var(--muted);
-  margin: 0 0 1rem;
+  color: var(--ink);
+  line-height: 1.45;
+  margin: 0 0 0.85rem;
+  max-width: 42ch;
+}
+
+.hero-specialties {
+  list-style: none;
+  margin: 0 0 1.75rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.hero-specialties li {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--line));
 }
 
 .hero-tagline {
@@ -344,8 +365,29 @@
 .card-title {
   font-size: 1.1rem;
   font-weight: 600;
-  margin: 0 0 0.25rem;
+  margin: 0;
   color: var(--ink);
+}
+
+.card-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.type-badge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--muted);
+  border: 1px solid var(--line);
+  white-space: nowrap;
 }
 
 .card-sub {
@@ -382,6 +424,19 @@
   .skill-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+@media (min-width: 960px) {
+  .skill-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.skill-note {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
 }
 
 .skill-block-title {
@@ -440,7 +495,7 @@
 .project-stack {
   font-size: 0.8rem;
   color: var(--muted);
-  margin: 0.35rem 0 0;
+  margin: 0.35rem 0 0.75rem;
   line-height: 1.5;
 }
 
@@ -470,6 +525,61 @@
 
 .cert-issuer {
   font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.award-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.award-list li {
+  padding: 0.85rem 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--muted);
+  border-left: 3px solid var(--accent);
+}
+
+.lang-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 480px) {
+  .lang-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.lang-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  text-align: center;
+}
+
+.lang-name {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.lang-level {
+  font-size: 0.85rem;
   color: var(--muted);
 }
 
